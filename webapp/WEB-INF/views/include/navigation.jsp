@@ -20,7 +20,6 @@
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li class="selected"><a href="${pageContext.servletContext.contextPath }/board">게시판</a></li>
 						
-						
 					</c:when>
 					<c:otherwise>
 						<li><a href="${pageContext.servletContext.contextPath }/main">jx372</a></li>
