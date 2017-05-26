@@ -24,7 +24,7 @@
 					</c:when>
 					<c:otherwise>
 						<li><a href="${pageContext.servletContext.contextPath }/main">jx372</a></li>
-						<li><a href="${pageContext.servletContext.contextPath }/guestbook">방명록</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/board">게시판</a></li>
 					</c:otherwise>					
 				</c:choose>
