@@ -6,6 +6,7 @@
 <typeAliases>
 	<typeAlias alias="guestbookvo" type="com.jx372.mysite.vo.GuestbookVo" />
 	<typeAlias alias="uservo" type="com.jx372.mysite.vo.UserVo" />
+	<typeAlias alias="boardvo" type="com.jx372.mysite.vo.BoardVo" />
 </typeAliases>
 
 

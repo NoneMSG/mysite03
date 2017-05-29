@@ -23,21 +23,21 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>${title }</td>
+						<td>${bvo.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${fn:replace(content, newLine, "<br>") }
+								${fn:replace(bvo.content, newLine, "<br>") }
 							</div>
 						</td>
 					</tr>
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath }/board">글목록</a>
-					<a href="${pageContext.servletContext.contextPath }/board?a=modifyform&bno=${bno}">글수정</a>
-					<a href="${pageContext.servletContext.contextPath }/board?a=replyform&bno=${bno}">댓글달기</a>
+					<a href="${pageContext.servletContext.contextPath }/board/modify/${bvo.no}">글수정</a>
+					<a href="${pageContext.servletContext.contextPath }/board/reply/${bvo.no}">댓글달기</a>
 				</div>
 			</div>
 		</div>

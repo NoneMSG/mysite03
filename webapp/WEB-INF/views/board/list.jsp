@@ -37,12 +37,12 @@
 							<c:when test="${bvo.depth > 0 }">
 								<td class="left" style="padding-left:${20*bvo.depth }px">
 									<img src="${pageContext.servletContext.contextPath }/assets/images/reply.png">
-									<a href="${pageContext.servletContext.contextPath }/board?a=viewform&bno=${bvo.no}">${bvo.title }</a>
+									<a href="${pageContext.servletContext.contextPath }/board/view/${bvo.no}">${bvo.title }</a>
 								</td>	
 							</c:when>
 							<c:otherwise>
 								<td class="left">
-								<a href="${pageContext.servletContext.contextPath }/board?a=viewform&bno=${bvo.no}">${bvo.title }</a>
+								<a href="${pageContext.servletContext.contextPath }/board/view/${bvo.no}">${bvo.title }</a>
 								</td>
 							</c:otherwise>
 						</c:choose>
@@ -52,7 +52,7 @@
 						<td>
 							<c:choose>
 								<c:when test="${not empty authUser && authUser.no == bvo.userNo}">
-									<a href="${pageContext.servletContext.contextPath }/board?a=delete&bno=${bvo.no}" class="del">삭제</a>
+									<a href="${pageContext.servletContext.contextPath }/board/delete/${bvo.no}" class="del">삭제</a>
 								
 								</c:when>
 								<c:otherwise>
@@ -76,7 +76,7 @@
 					</ul>
 				</div>				
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+					<a href="${pageContext.servletContext.contextPath }/board/write" id="new-book">글쓰기</a>
 				</div>				
 			</div>
 		</div>
