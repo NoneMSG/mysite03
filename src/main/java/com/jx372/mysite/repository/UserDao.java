@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -21,70 +23,15 @@ public class UserDao {
 	
 	@Autowired
 	private DataSource datasource;
-	
-//	private Connection getConnection() throws SQLException {
-//		Connection conn = null;
-//		
-//		try {
-//			//1. 드라이버 로딩
-//			Class.forName( "com.mysql.jdbc.Driver" );
-//			
-//			//2. Connection 하기
-//			String url = "jdbc:mysql://localhost:3306/webdb?useUnicode=true&characterEncoding=utf8";
-//			conn = DriverManager.getConnection( url, "webdb", "webdb" );
-//		} catch( ClassNotFoundException e ) {
-//			System.out.println( "JDBC Driver 를 찾을 수 없습니다." );
-//		} 
-//		
-//		return conn;
-//	}
-	
+		
 	public UserVo get( Long no ){
-		UserVo vo = null;
 		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		//map을 resultType으로 사용하는 예제
+		Map map = sqlSession.selectOne("user.getByNo2", no);
+		System.out.println(map);
 		
-		try {
-			conn = datasource.getConnection();
-			
-			String sql = 
-				" select no, name, email, gender" + 
-				"   from user" + 
-				"  where no=?";
-			pstmt = conn.prepareStatement( sql );
-			
-			pstmt.setLong( 1, no );
-			
-			rs = pstmt.executeQuery();
-			if( rs.next() ) {
-				vo = new UserVo();
-				vo.setNo( rs.getLong( 1 ) );
-				vo.setName( rs.getString( 2 ) );
-				vo.setEmail( rs.getString( 3 ) );
-				vo.setGender( rs.getString( 4 ) );
-			}
-			
- 		}catch( SQLException e ) {
- 			e.printStackTrace();
-		}finally{
-			try {
-				if( rs != null ) {
-					rs.close();
-				}
-				if( pstmt != null ) {
-					pstmt.close();
-				}
-				if( conn != null ) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return vo;
+		UserVo userVo = sqlSession.selectOne("user.getByNo",no);
+		return userVo;
 	}
 	
 	public UserVo get( String email, String password ) {
@@ -139,52 +86,8 @@ public class UserDao {
 	}
 	
 	public boolean update( UserVo vo ) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = datasource.getConnection();
-
-			if( "".equals( vo.getPassword() ) ) {
-				String sql = 
-						" update user" +
-						"    set name=?," +
-						"        gender=?" +
-						"  where no = ?";
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString( 1, vo.getName() );
-					pstmt.setString( 2, vo.getGender() );
-					pstmt.setLong( 3, vo.getNo() );
-			} else {
-				String sql = 
-					" update user" +
-					"    set name=?," +
-					"        password=password(?)," +
-					"        gender=?" +
-					"  where no = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString( 1, vo.getName() );
-				pstmt.setString( 2, vo.getPassword() );
-				pstmt.setString( 3, vo.getGender() );
-				pstmt.setLong( 4, vo.getNo() );				
-			}
-			
-			int count = pstmt.executeUpdate();
-			return count == 1;
-			
-		}catch( SQLException e ) {
-		
-		}finally{
-			try {
-				if(conn != null ) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return false;
+		int count = sqlSession.update("user.update",vo);
+		return count==1;
 	}
 	
 	public boolean insert( UserVo vo ) {

@@ -2,6 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="user">
-
+	
+	<select id="getByNo2" resultType="map" parameterType="long"> <!-- 내장객체, 객체만 넘길수 있다. -->
+	<![CDATA[
+		select no, name, email, gender
+		from user 
+		where no=#{no }
+	]]>
+	</select>
+	
+ 	<!-- 객체는 한개밖에 못 보낸다 -->
+	<select id="getByNo" resultType="uservo" parameterType="long"> <!-- 내장객체, 객체만 넘길수 있다. -->
+	<![CDATA[
+		select no, name, email, gender
+		from user 
+		where no=#{no }
+	]]>
+	</select>
+	
+	<!-- Dynamic SQL -->
+	<update id="update" parameterType ="uservo" >
+		<![CDATA[
+		update user 
+			set name=?,
+		]]>
+		<!-- if외에 choose when 사용가능 -->
+			<if test="password!=null and password!='' ">
+				<![CDATA[ 
+					password=password(?),
+				]]>
+			</if>	
+		
+		<![CDATA[ 
+			gender=? 
+		where no = ?
+		]]>
+	</update>
+	
 
 </mapper>

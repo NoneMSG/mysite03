@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<typeAliases>
-	</typeAliases>
+	
+	<!-- 공통설정에 해주어야 한다. -->
+<typeAliases>
+	<typeAlias alias="guestbookvo" type="com.jx372.mysite.vo.GuestbookVo" />
+	<typeAlias alias="uservo" type="com.jx372.mysite.vo.UserVo" />
+</typeAliases>
+
 
 <!-- SQL을 저장하는 파일 -->
 	<mappers>
