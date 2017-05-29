@@ -3,7 +3,6 @@ package com.jx372.mysite.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jx372.mysite.exception.UserDaoException;
 import com.jx372.mysite.repository.UserDao;
 import com.jx372.mysite.vo.UserVo;
 

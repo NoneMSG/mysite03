@@ -15,6 +15,7 @@ import com.jx372.mysite.vo.GuestbookVo;
 
 @Repository
 public class GuestbookDao {
+	
 	private Connection getConnection() throws SQLException {
 		
 		Connection conn = null;

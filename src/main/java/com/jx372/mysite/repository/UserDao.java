@@ -1,36 +1,43 @@
 package com.jx372.mysite.repository;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.jx372.mysite.exception.UserDaoException;
 import com.jx372.mysite.vo.UserVo;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
 @Repository
 public class UserDao {
-
-	private Connection getConnection() throws SQLException {
-		Connection conn = null;
-		
-		try {
-			//1. 드라이버 로딩
-			Class.forName( "com.mysql.jdbc.Driver" );
-			
-			//2. Connection 하기
-			String url = "jdbc:mysql://localhost:3306/webdb?useUnicode=true&characterEncoding=utf8";
-			conn = DriverManager.getConnection( url, "webdb", "webdb" );
-		} catch( ClassNotFoundException e ) {
-			System.out.println( "JDBC Driver 를 찾을 수 없습니다." );
-		} 
-		
-		return conn;
-	}
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	@Autowired
+	private DataSource datasource;
+	
+//	private Connection getConnection() throws SQLException {
+//		Connection conn = null;
+//		
+//		try {
+//			//1. 드라이버 로딩
+//			Class.forName( "com.mysql.jdbc.Driver" );
+//			
+//			//2. Connection 하기
+//			String url = "jdbc:mysql://localhost:3306/webdb?useUnicode=true&characterEncoding=utf8";
+//			conn = DriverManager.getConnection( url, "webdb", "webdb" );
+//		} catch( ClassNotFoundException e ) {
+//			System.out.println( "JDBC Driver 를 찾을 수 없습니다." );
+//		} 
+//		
+//		return conn;
+//	}
 	
 	public UserVo get( Long no ){
 		UserVo vo = null;
@@ -40,7 +47,7 @@ public class UserDao {
 		ResultSet rs = null;
 		
 		try {
-			conn = getConnection();
+			conn = datasource.getConnection();
 			
 			String sql = 
 				" select no, name, email, gender" + 
@@ -88,7 +95,7 @@ public class UserDao {
 		ResultSet rs = null;
 		
 		try {
-			conn = getConnection();
+			conn = datasource.getConnection();
 			
 			String sql = 
 				" select no, name" + 
@@ -136,7 +143,7 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			conn = getConnection();
+			conn = datasource.getConnection();
 
 			if( "".equals( vo.getPassword() ) ) {
 				String sql = 
@@ -185,7 +192,7 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			conn = getConnection();
+			conn = datasource.getConnection();
 			
 			String sql = 
 				" insert" +

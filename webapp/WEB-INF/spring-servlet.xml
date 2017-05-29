@@ -26,5 +26,5 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.jx372.mysite.controller" />
-
+	
 </beans>
