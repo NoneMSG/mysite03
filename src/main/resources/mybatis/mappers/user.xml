@@ -3,12 +3,33 @@
 
 <mapper namespace="user">
 	
+	<insert id="insert" parameterType="uservo">
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+				select last_insert_id()
+		</selectKey>
+		<![CDATA[
+			insert
+				into user
+			values (#{no}, #{name}, #{email}, password(#{password}), #{gender})
+		]]>
+		
+	</insert>
+	
 	<select id="getByNo2" resultType="map" parameterType="long"> <!-- 내장객체, 객체만 넘길수 있다. -->
 	<![CDATA[
 		select no, name, email, gender
 		from user 
 		where no=#{no }
 	]]>
+	</select>
+	
+	<select id="getByInfo" resultType="uservo" parameterType="map">
+		<![CDATA[
+			select no, name
+				from user 
+				where email=#{email}
+				and password = password(#{password})
+		]]>
 	</select>
 	
  	<!-- 객체는 한개밖에 못 보낸다 -->
@@ -24,20 +45,19 @@
 	<update id="update" parameterType ="uservo" >
 		<![CDATA[
 		update user 
-			set name=?,
+			set name=#{name},
 		]]>
 		<!-- if외에 choose when 사용가능 -->
-			<if test="password!=null and password!='' ">
+			<if test="password!='' ">
 				<![CDATA[ 
-					password=password(?),
+					password=password(#{password}),
 				]]>
 			</if>	
 		
 		<![CDATA[ 
-			gender=? 
-		where no = ?
+			gender=#{gender}
+		where no = #{no}
 		]]>
 	</update>
 	
-
 </mapper>

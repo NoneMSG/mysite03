@@ -3,6 +3,7 @@
 
 <mapper namespace="guestbook">
 
+	<!-- show list -->
 	<select id="getList" resultType="guestbookvo">
 		<![CDATA[
 			select no, 
@@ -14,15 +15,7 @@
 		]]>
 	</select>
 	
-	<!-- 객체는 한개만 넘길 수 있다. 반드시 setter,getter가 구현되어있어야한다.
-	<insert id="insert" parameterType="guestbookvo">
-		<![CDATA[
-		insert 
-			into guestbook 
-		values( null, #{name}, #{passwd}, #{message}, now() )
-		]]>
-	</insert>-->
-	
+	<!-- insert -->
 	<insert id="insert" parameterType="guestbookvo">
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 				select last_insert_id()
@@ -34,6 +27,16 @@
 		]]>
 	</insert>
 	
+	<!-- 객체는 한개만 넘길 수 있다. 반드시 setter,getter가 구현되어있어야한다.
+	<insert id="insert" parameterType="guestbookvo">
+		<![CDATA[
+		insert 
+			into guestbook 
+		values( null, #{name}, #{passwd}, #{message}, now() )
+		]]>
+	</insert>-->
+	
+	<!-- delete -->
 	<select id="delete" parameterType="guestbookvo">
 		<![CDATA[
 			delete from guestbook 
