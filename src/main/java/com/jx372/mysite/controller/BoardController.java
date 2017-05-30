@@ -1,6 +1,7 @@
 package com.jx372.mysite.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,12 +26,25 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping("/list")
-	public String list(Model model){
-		List<BoardVo> list = boardService.getList();
-		model.addAttribute("blist",list);
-		return "/board/list";
+	@RequestMapping( "/list" )
+	public String index(
+		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
+		Model model ) {
+		
+		Map<String, Object> map = boardService.getMessageList( page );
+		model.addAttribute( "map", map );
+
+		System.out.println( map );
+		
+		return "/board/list2";
 	}
+	
+//	@RequestMapping("/list")
+//	public String list(Model model){
+//		List<BoardVo> list = boardService.getList();
+//		model.addAttribute("blist",list);
+//		return "/board/list";
+//	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String write(){

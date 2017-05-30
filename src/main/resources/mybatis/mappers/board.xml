@@ -2,30 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-	
+
+	<select id="totalCount" resultType="integer">
+				<![CDATA[
+				select count(*) from board
+				]]>
+	</select>
+
 	<insert id="insert" parameterType="boardvo">
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
-				select last_insert_id()
-		</selectKey>
 		<![CDATA[
 		insert
 		 into board
 		]]>
 		<choose>
-		<when test="groupNo==0">
+			<when test="groupNo==0">
 		<![CDATA[
-			 values (#{no}, #{title}, #{content}, 0, now(), (select ifnull(max(group_no), 0) + 1 from board as a), 1, 0, #{userNo})
+			 values (null, #{title}, #{content}, 0, now(), (select ifnull(max(group_no), 0) + 1 from board as a), 1, 0, #{userNo})
 		]]>
-		</when>
-		<otherwise>
+			</when>
+			<otherwise>
 		<![CDATA[
-			  values (#{no}, #{title}, #{content}, 0, now(), #{groupNo}, #{orderNo}, #{depth}, #{userNo})
+			  values (null, #{title}, #{content}, 0, now(), #{groupNo}, #{orderNo}, #{depth}, #{userNo})
 		]]>
-		</otherwise>
+			</otherwise>
 		</choose>
 	</insert>
-	
-	
+
+	<select id="getList2" parameterType="map" resultType="boardvo">
+	<![CDATA[
+		select a.no as no,
+		 a.title as title,
+		 a.hit as hit,
+		 date_format(a.reg_date, '%Y-%m-%d %p %h:%i:%s') as regDate,
+		 a.depth as depth,
+		 b.name as userName,
+		 a.user_no as userNo
+		 from board a, user b
+		where a.user_no = b.no
+		order by group_no desc, order_no asc
+		limit #{page }, #{size }				
+		]]>
+	</select>
+
 	<select id="getList" resultType="boardvo">
 	<![CDATA[
 	select a.no as no, title, content, hit, date_format(reg_date, '%Y-%m-%d') as regDate, 
@@ -33,15 +51,15 @@
 		 from board a, user b
 		 where a.user_no = b.no 
 		 order by a.group_no desc, a.order_no asc 
-	]]>	
+	]]>
 	</select>
-	
+
 	<select id="getListbyNo" resultType="boardvo" parameterType="long">
 		<![CDATA[
 		select title, content from board where no=#{no}
 		]]>
 	</select>
-	
+
 	<select id="getbyNo" resultType="boardvo" parameterType="long">
 	<![CDATA[
 		select no, title, content,  
@@ -49,25 +67,26 @@
 		from board where no=#{no}
 	]]>
 	</select>
-	
+
 	<update id="update" parameterType="long">
 		<![CDATA[
 		update board set hit=hit+1 where no=#{no}
 		]]>
 	</update>
-	
+
 	<update id="modify" parameterType="boardvo">
 		<![CDATA[
 		update board set title=#{title}, content=#{content}  
 			where no=#{no} and user_no=#{userNo}
 		]]>
-		
+
 	</update>
-	
+
 	<update id="increasOrderNo" parameterType="map">
-		update board set order_no = order_no + 1 where group_no = ? and order_no > ?
+		update board set
+		order_no = order_no + 1 where group_no = ? and order_no > ?
 	</update>
-	
+
 	<delete id="delete" parameterType="boardvo">
 		<![CDATA[
 		delete from board where no = #{no} and user_no = #{userNo}
