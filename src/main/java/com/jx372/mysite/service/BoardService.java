@@ -19,7 +19,7 @@ public class BoardService {
 	private BoardDao boardDao;
 	
 	//게시판 리스트 뷰페이지 기능 로직
-	public Map<String, Object> getMessageList(int currentPage){
+	public Map<String, Object> getMessageList(int currentPage, String keyword){
 		int totalCount = boardDao.getTotalCount(); 
 		int pageCount = (int)Math.ceil( (double)totalCount / LIST_SIZE );
 		int blockCount = (int)Math.ceil( (double)pageCount / PAGE_SIZE );
@@ -37,7 +37,8 @@ public class BoardService {
 		int nextPage = ( currentBlock < blockCount ) ? currentBlock * PAGE_SIZE + 1 : 0;
 		int endPage = ( nextPage > 0 ) ? ( beginPage - 1 ) + LIST_SIZE : pageCount;
 		
-		List<BoardVo> list = boardDao.getList(currentPage, LIST_SIZE );
+		//List<BoardVo> list = boardDao.getList(currentPage, LIST_SIZE );
+		List<BoardVo> list = boardDao.getList(keyword ,currentPage, LIST_SIZE );
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -49,7 +50,7 @@ public class BoardService {
 		map.put( "endPage", endPage );
 		map.put( "prevPage", prevPage );
 		map.put( "nextPage", nextPage );
-		
+		map.put("keyword", keyword);
 		return map;
 	}
 	

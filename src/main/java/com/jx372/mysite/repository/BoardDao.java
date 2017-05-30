@@ -30,10 +30,11 @@ public class BoardDao {
 	}
 	
 	//게시글 뷰페이지를 보기 위한 쿼리 호출
-	public List<BoardVo> getList( Integer page, Integer size ) {
+	public List<BoardVo> getList(String keyword, Integer page, Integer size ) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put( "page", page-1 );
+		map.put("keyword", keyword);
+		map.put( "page", (page-1)*size );
 		map.put( "size", size );
 		
 		return sqlSession.selectList( "board.getList2", map );
@@ -69,53 +70,6 @@ public class BoardDao {
 		int count = sqlSession.insert("board.insert",vo);
 		return count==1;
 	}
-	
-//	public int getTotalCount( String keyword ) {
-//		int totalCount = 0;
-//
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		
-//		try {
-//			conn = getConnection();
-//			if( "".equals( keyword ) ) {
-//				String sql = "select count(*) from board";
-//				pstmt = conn.prepareStatement(sql);
-//			} else { 
-//				String sql =
-//					"select count(*)" +
-//					"  from board" +
-//					" where title like ? or content like ?";
-//				pstmt = conn.prepareStatement(sql);
-//				
-//				pstmt.setString(1, "%" + keyword + "%");
-//				pstmt.setString(2, "%" + keyword + "%");
-//			}
-//			rs = pstmt.executeQuery();
-//			if( rs.next() ) {
-//				totalCount = rs.getInt( 1 );
-//			}
-//		} catch (SQLException e) {
-//			System.out.println( "error:" + e );
-//		} finally {
-//			try {
-//				if( rs != null ) {
-//					rs.close();
-//				}
-//				if( pstmt != null ) {
-//					pstmt.close();
-//				}
-//				if( conn != null ) {
-//					conn.close();
-//				}
-//			} catch ( SQLException e ) {
-//				System.out.println( "error:" + e );
-//			}  
-//		}
-//		
-//		return totalCount;
-//	}
 	
 	
 }

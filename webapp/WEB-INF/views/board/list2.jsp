@@ -14,7 +14,7 @@
 		<c:import url="/WEB-INF/views/include/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="${pageContext.request.contextPath }/board" method="get">
+				<form id="search_form" action="${pageContext.request.contextPath }/board/list" method="get">
 					<input type="text" id="kwd" name="kwd" value="${map.keyword }">
 					<input type="submit" value="찾기">
 				</form>

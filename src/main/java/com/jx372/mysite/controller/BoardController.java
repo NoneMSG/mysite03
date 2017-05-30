@@ -33,7 +33,8 @@ public class BoardController {
 		@RequestParam( value="kwd", required=true, defaultValue="")String kwd,
 		Model model ) {
 		//map을 이용해 문자열 객체변수에 있는 값을 전달 가능
-		Map<String, Object> map = boardService.getMessageList( page );
+		Map<String, Object> map = boardService.getMessageList( page, kwd );
+		
 		model.addAttribute( "map", map ); //페이지로 데이터를 넘김
 
 		//System.out.println( map );
