@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jx372.mysite.service.UserService;
 import com.jx372.mysite.vo.UserVo;
+import com.jx372.security.Auth;
 
 @Controller
 @RequestMapping("/user")
@@ -52,23 +53,24 @@ public class UserController {
 	public String login(){
 		return "user/login";
 	}
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(
-			HttpSession session, //기술의 침투
-			Model model,
-			@RequestParam(value="email", required=true, defaultValue="")String email,
-			@RequestParam(value="password", required=true, defaultValue="")String password
-			){
-        UserVo userVo=userService.getUser(email,password);
-        
-        if(userVo==null){
-        	model.addAttribute("result","fail");
-        	return "user/login"; //forwarding
-        }
-        //인증
-        session.setAttribute("authUser", userVo);
-		return "redirect:/main";
-	}
+
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public String login(
+//			HttpSession session, //기술의 침투
+//			Model model,
+//			@RequestParam(value="email", required=true, defaultValue="")String email,
+//			@RequestParam(value="password", required=true, defaultValue="")String password
+//			){
+//        UserVo userVo=userService.getUser(email,password);
+//        
+//        if(userVo==null){
+//        	model.addAttribute("result","fail");
+//        	return "user/login"; //forwarding
+//        }
+//        //인증
+//        session.setAttribute("authUser", userVo);
+//		return "redirect:/main";
+//	}
 
 	//@RequestMapping(value="/login", method=RequestMethod.POST)
 	//public String login(){
@@ -81,20 +83,22 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/main";
 	}
-	
+	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String modify(
 			HttpSession session
 			){
 		//인증여부 체크(접근제한)
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser==null){
-			return "redirect:/user/login";
-		}
+//		if(authUser==null){
+//			return "redirect:/user/login";
+//		}
 		authUser = userService.getUser(authUser.getNo());
 		session.setAttribute("authUser", authUser);
 		return "user/modify";
 	}
+	
+	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(
 			HttpSession session,
@@ -102,9 +106,9 @@ public class UserController {
 			){
 		//인증여부 체크(접근제한)
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser==null){
-			return "redirect:/user/login";
-		}
+//		if(authUser==null){
+//			return "redirect:/user/login";
+//		}
 		vo.setNo(authUser.getNo());
 		//System.out.println(vo);
 		

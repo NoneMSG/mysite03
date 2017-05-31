@@ -14,7 +14,8 @@
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath}/board/modify/${bvo.no}">
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath}/board/modify">
+					<input type="hidden" name="no" value="${bvo.no }" />
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>

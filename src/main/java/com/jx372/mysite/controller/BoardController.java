@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jx372.mysite.service.BoardService;
 import com.jx372.mysite.vo.BoardVo;
 import com.jx372.mysite.vo.UserVo;
+import com.jx372.security.Auth;
 
 
 @Controller
@@ -60,6 +61,7 @@ public class BoardController {
 	}
 	
 	//글쓰기 페이지에서 글쓰기 기능
+	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String write(
 			@ModelAttribute BoardVo boardvo,
@@ -100,13 +102,14 @@ public class BoardController {
 	}
 	
 	//글을 수정하기 위한 포워드 컨트롤
+	@Auth
 	@RequestMapping(value="/modify/{no}",method=RequestMethod.GET)
 	public String getModify(@PathVariable("no")Long no, Model model, HttpSession session){
 		//수정권한이 있는지 확인
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser==null){
-			return "redirect:/board/list";
-		}
+//		UserVo authUser = (UserVo) session.getAttribute("authUser");
+//		if(authUser==null){
+//			return "redirect:/user/login";
+//		}
 		//권한이 있다면 게시글의 내용을 DB로부터 받아와 보여준다.
 		BoardVo vo = (BoardVo)boardService.getContent(no);
 		//데이터를 보여주기위해 페이지로전달
@@ -115,19 +118,19 @@ public class BoardController {
 	}
 	
 	//수정페이지에서 내용을 바꾸기 위한 컨트롤
-	@RequestMapping(value="/modify/{no}",method=RequestMethod.POST)
+	@Auth
+	@RequestMapping(value="/modify",method=RequestMethod.POST)
 	public String getModify(
-			@PathVariable("no")Long no,
 			@ModelAttribute BoardVo boardvo,
 			HttpSession session
 			){
 		//권한확인
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser==null){
-			return "redirect:/board/list";
-		}
+//		if(authUser==null){
+//			return "redirect:/user/login";
+//		}
 		//글을 수정하는데 필요한 정보인 글번호 유저번호 저장
-		boardvo.setNo(no);
+		//boardvo.setNo(no);
 		boardvo.setUserNo(authUser.getNo());
 		System.out.println(boardvo);
 		//DB에 데이터를 업데이트 시키기 위한 함수호출
