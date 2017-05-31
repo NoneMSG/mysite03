@@ -54,7 +54,7 @@
 			<version>1.4</version>
 		</dependency>
 
-		<!-- MyBatis spring에서 쓰기위해 두가지의 의존성이 필요하다.-->
+		<!-- MyBatis spring에서 쓰기위해 두가지의 의존성이 필요하다. -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -73,6 +73,15 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+
+		<!-- jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

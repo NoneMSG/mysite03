@@ -14,7 +14,13 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	//Dao를 여러개 사용 가능 ! Autowired는 각각 해주어야 한다.
+	//------------Dao를 여러개 사용 가능 ! Autowired는 각각 해주어야 한다.
+	
+	public boolean existEmail(String email) {
+		UserVo uservo = userDao.get(email);
+		
+		return uservo!=null;
+	}
 	
 	public void join(UserVo userVo){
 		//1. DB에 사용자정보 저장
@@ -33,5 +39,7 @@ public class UserService {
 	public void update(UserVo userVo){
 		userDao.update(userVo);
 	}
+
+	
 	
 }

@@ -37,7 +37,6 @@ public class BoardService {
 		int nextPage = ( currentBlock < blockCount ) ? currentBlock * PAGE_SIZE + 1 : 0;
 		int endPage = ( nextPage > 0 ) ? ( beginPage - 1 ) + LIST_SIZE : pageCount;
 		
-		//List<BoardVo> list = boardDao.getList(currentPage, LIST_SIZE );
 		List<BoardVo> list = boardDao.getList(keyword ,currentPage, LIST_SIZE );
 		
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -16,7 +16,12 @@ public class UserDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
-			
+	
+	public UserVo get(String email) {
+		
+		return sqlSession.selectOne("user.getByEmail",email);
+	}
+	
 	public UserVo get( Long no ){
 		
 		//map을 resultType으로 사용하는 예제
@@ -44,4 +49,6 @@ public class UserDao {
 		int count = sqlSession.insert("user.insert",vo);
 		return count==1;
 	}
+
+	
 }

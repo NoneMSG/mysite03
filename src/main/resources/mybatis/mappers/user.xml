@@ -15,6 +15,14 @@
 		
 	</insert>
 	
+	<select id="getByEmail" resultType="uservo" parameterType="string">
+	<![CDATA[
+		select email
+		from user 
+		where email=#{email }
+	]]>
+	</select>	
+	
 	<select id="getByNo2" resultType="map" parameterType="long"> <!-- 내장객체, 객체만 넘길수 있다. -->
 	<![CDATA[
 		select no, name, email, gender
