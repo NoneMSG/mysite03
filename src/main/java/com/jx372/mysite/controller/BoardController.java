@@ -138,6 +138,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	@Auth
 	@RequestMapping("/reply/{no}")
 	public String getReply(
 			@PathVariable("no")Long no,
@@ -145,10 +146,10 @@ public class BoardController {
 			Model model,
 			HttpSession session
 			){
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser==null){
-			return "redirect:/board/list";
-		}
+		//UserVo authUser = (UserVo) session.getAttribute("authUser");
+//		if(authUser==null){
+//			return "redirect:/board/list";
+//		}
 		boardvo.setNo(no);
 		BoardVo replyvo = boardService.getContent(no);
 		model.addAttribute("replyVo",replyvo);
@@ -168,6 +169,7 @@ public class BoardController {
 //	}
 	
 	//게시글의 삭제를 위한 컨트롤
+	@Auth
 	@RequestMapping("/delete/{bno}" )
 	public String delete(
 			@PathVariable("bno") Long no,
@@ -175,9 +177,9 @@ public class BoardController {
 			){
 		//삭제권한 확인
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser==null){
-			return "redirect:/board/list";
-		}
+//		if(authUser==null){
+//			return "redirect:/board/list";
+//		}
 		//권한이 있다면 DB수정에 필요한 데이터를 VO에 저장
 		BoardVo boardvo= new BoardVo();
 		boardvo.setNo(no);

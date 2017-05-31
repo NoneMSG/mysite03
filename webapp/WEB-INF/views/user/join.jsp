@@ -7,6 +7,8 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
 <script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
+//js 에서 서버로부터 데이터를 보내고 받기 위해 작성
+// 메일 check 버튼을 누르면 js 변수에 값을 저장시키고
 $(function() {
 	$("#check-button").click(function(){
 		var email = $("#email").val();
@@ -14,9 +16,9 @@ $(function() {
 			return;
 		}
 		
-		//ajax 통신
+		//ajax 통신 
 		$.ajax( {
-		    url : "/mysite03/user/api/checkemail?email="+email,
+		    url : "/mysite03/user/api/checkemail?email="+email, //해당 페이지는 메일 체크하는 페이지에 get방식으로 데이터를 보낸다.
 		    type: "get",
 		    dataType: "json",
 		    data: "",

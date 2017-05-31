@@ -4,13 +4,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jx372.mysite.service.UserService;
 import com.jx372.mysite.vo.UserVo;
@@ -29,19 +25,12 @@ public class UserController {
 		return "user/join";
 	}
 	
-//	@RequestMapping(value="/join", method=RequestMethod.POST)
-//	public String join(@ModelAttribute UserVo userVo){
-//		System.out.println(userVo);
-//		//join 로직은 service에서 처리
-//		userService.join(userVo);
-//		return "redirect:/user/joinsuccess";
-//	}
-	
-	//MsgCovt test
-	@ResponseBody
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join2(@RequestBody String requestBody){
-		return requestBody;
+	public String join(@ModelAttribute UserVo userVo){
+		System.out.println(userVo);
+		//join 로직은 service에서 처리
+		userService.join(userVo);
+		return "redirect:/user/joinsuccess";
 	}
 	
 	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)
@@ -54,35 +43,7 @@ public class UserController {
 		return "user/login";
 	}
 
-//	@RequestMapping(value="/login", method=RequestMethod.POST)
-//	public String login(
-//			HttpSession session, //기술의 침투
-//			Model model,
-//			@RequestParam(value="email", required=true, defaultValue="")String email,
-//			@RequestParam(value="password", required=true, defaultValue="")String password
-//			){
-//        UserVo userVo=userService.getUser(email,password);
-//        
-//        if(userVo==null){
-//        	model.addAttribute("result","fail");
-//        	return "user/login"; //forwarding
-//        }
-//        //인증
-//        session.setAttribute("authUser", userVo);
-//		return "redirect:/main";
-//	}
-
-	//@RequestMapping(value="/login", method=RequestMethod.POST)
-	//public String login(){
-	//	return "user/login";
-	//}
-
-	@RequestMapping("/logout")
-	public String logout(HttpSession session){
-		session.removeAttribute("authUser");
-		session.invalidate();
-		return "redirect:/main";
-	}
+	
 	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String modify(
@@ -116,6 +77,46 @@ public class UserController {
 		session.setAttribute("result", "success");
 		return "redirect:/user/logout";
 	}
+	
+//	//MsgCovt test
+//	@ResponseBody
+//	@RequestMapping(value="/join", method=RequestMethod.POST)
+//	public String join2(@RequestBody String requestBody){
+//		return requestBody;
+//	}
+	
+	
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public String login(
+//			HttpSession session, //기술의 침투
+//			Model model,
+//			@RequestParam(value="email", required=true, defaultValue="")String email,
+//			@RequestParam(value="password", required=true, defaultValue="")String password
+//			){
+//        UserVo userVo=userService.getUser(email,password);
+//        
+//        if(userVo==null){
+//        	model.addAttribute("result","fail");
+//        	return "user/login"; //forwarding
+//        }
+//        //인증
+//        session.setAttribute("authUser", userVo);
+//		return "redirect:/main";
+//	}
+
+	//@RequestMapping(value="/login", method=RequestMethod.POST)
+	//public String login(){
+	//	return "user/login";
+	//}
+
+//	@RequestMapping("/logout")
+//	public String logout(HttpSession session){
+////		session.removeAttribute("authUser");
+////		session.invalidate();
+//		return "redirect:/main";
+//	}
+
+	
 //	@ExceptionHandler(UserDaoException.class)
 //	public String handleUserDaoException(){
 //		//1.로깅
