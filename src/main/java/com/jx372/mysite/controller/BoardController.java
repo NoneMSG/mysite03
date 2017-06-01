@@ -17,6 +17,7 @@ import com.jx372.mysite.service.BoardService;
 import com.jx372.mysite.vo.BoardVo;
 import com.jx372.mysite.vo.UserVo;
 import com.jx372.security.Auth;
+import com.jx372.security.AuthUser;
 
 
 @Controller
@@ -40,23 +41,14 @@ public class BoardController {
 
 		//System.out.println( map );
 		
-		return "/board/list2";
+		return "/board/list";
 	}
 	
-//	@RequestMapping("/list")
-//	public String list(Model model){
-//		List<BoardVo> list = boardService.getList();
-//		model.addAttribute("blist",list);
-//		return "/board/list";
-//	}
 	
 	//글쓰기 페이지로 이동 세션에 로그인 정보가 없다면 로그인하도록 redirect 
 	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public String write(HttpSession session){
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser==null){
-			return "redirect:/board/list";
-		}
+	public String write(@AuthUser UserVo authUser){
+
 		return "/board/write";
 	}
 	
@@ -64,17 +56,13 @@ public class BoardController {
 	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String write(
-			HttpSession session,
+			@AuthUser UserVo authUser,
 			@ModelAttribute BoardVo boardvo,
 			@RequestParam(value="gno", required=true, defaultValue="")Integer gno,
 			@RequestParam(value="ono", required=true, defaultValue="")Integer ono,
 			@RequestParam(value="depth", required=true, defaultValue="")Integer dep
 			){
-		//로그인정보체크
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser==null){
-			return "redirect:/board/list";
-		}
+		
 		//댓글쓰기와 기능을 같이 쓰기 때문에 필요한 데이터를 받는다.
 		boardvo.setGroupNo(gno); //글의 그룹번호
 		boardvo.setOrderNo(ono); //글의 순서번호 무엇이 댓글인지 알기위해
@@ -104,12 +92,11 @@ public class BoardController {
 	//글을 수정하기 위한 포워드 컨트롤
 	@Auth
 	@RequestMapping(value="/modify/{no}",method=RequestMethod.GET)
-	public String getModify(@PathVariable("no")Long no, Model model, HttpSession session){
-		//수정권한이 있는지 확인
-//		UserVo authUser = (UserVo) session.getAttribute("authUser");
-//		if(authUser==null){
-//			return "redirect:/user/login";
-//		}
+	public String getModify(
+			@PathVariable("no")Long no, 
+			Model model, 
+			@AuthUser UserVo authUser){
+	
 		//권한이 있다면 게시글의 내용을 DB로부터 받아와 보여준다.
 		BoardVo vo = (BoardVo)boardService.getContent(no);
 		//데이터를 보여주기위해 페이지로전달
@@ -122,15 +109,9 @@ public class BoardController {
 	@RequestMapping(value="/modify",method=RequestMethod.POST)
 	public String getModify(
 			@ModelAttribute BoardVo boardvo,
-			HttpSession session
+			@AuthUser UserVo authUser
 			){
-		//권한확인
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-//		if(authUser==null){
-//			return "redirect:/user/login";
-//		}
-		//글을 수정하는데 필요한 정보인 글번호 유저번호 저장
-		//boardvo.setNo(no);
+	
 		boardvo.setUserNo(authUser.getNo());
 		System.out.println(boardvo);
 		//DB에 데이터를 업데이트 시키기 위한 함수호출
@@ -143,44 +124,24 @@ public class BoardController {
 	public String getReply(
 			@PathVariable("no")Long no,
 			@ModelAttribute BoardVo boardvo,
-			Model model,
-			HttpSession session
+			Model model
 			){
-		//UserVo authUser = (UserVo) session.getAttribute("authUser");
-//		if(authUser==null){
-//			return "redirect:/board/list";
-//		}
+		
 		boardvo.setNo(no);
 		BoardVo replyvo = boardService.getContent(no);
 		model.addAttribute("replyVo",replyvo);
 		return "/board/reply";
 	}
 	
-//	@RequestMapping(value="/reply/{no}",method=RequestMethod.POST)
-//	public String writeReply(
-//			@PathVariable("no")Long no,
-//			@ModelAttribute BoardVo boardvo,
-//			Model model
-//			){
-//		boardvo.setNo(no);
-//		BoardVo replyvo = boardService.getContent(no);
-//		model.addAttribute("replyVo",replyvo);
-//		return "redirect:/board/reply";
-//	}
-	
 	//게시글의 삭제를 위한 컨트롤
 	@Auth
 	@RequestMapping("/delete/{bno}" )
 	public String delete(
 			@PathVariable("bno") Long no,
-			HttpSession session
+			@AuthUser UserVo authUser
 			){
 		//삭제권한 확인
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-//		if(authUser==null){
-//			return "redirect:/board/list";
-//		}
-		//권한이 있다면 DB수정에 필요한 데이터를 VO에 저장
+
 		BoardVo boardvo= new BoardVo();
 		boardvo.setNo(no);
 		boardvo.setUserNo(authUser.getNo());

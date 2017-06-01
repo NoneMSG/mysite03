@@ -47,17 +47,10 @@ public class UserController {
 	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String modify(
-			//HttpSession session
 			@AuthUser UserVo authUser,
 			Model model
 			){
-		//인증여부 체크(접근제한)
-		//UserVo authUser = (UserVo) session.getAttribute("authUser");
-//		if(authUser==null){
-//			return "redirect:/user/login";
-//		}
 		authUser = userService.getUser(authUser.getNo());
-		//session.setAttribute("authUser", authUser);
 		model.addAttribute("authUser",authUser);
 		return "user/modify";
 	}
@@ -68,11 +61,6 @@ public class UserController {
 			@AuthUser UserVo authUser,
 			@ModelAttribute UserVo vo
 			){
-		//인증여부 체크(접근제한)
-		//UserVo authUser = (UserVo) session.getAttribute("authUser");
-//		if(authUser==null){
-//			return "redirect:/user/login";
-//		}
 		System.out.println(vo);
 		vo.setNo(authUser.getNo());
 		userService.update(vo); 
