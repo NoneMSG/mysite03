@@ -64,8 +64,8 @@ public class BoardController {
 	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String write(
-			@ModelAttribute BoardVo boardvo,
 			HttpSession session,
+			@ModelAttribute BoardVo boardvo,
 			@RequestParam(value="gno", required=true, defaultValue="")Integer gno,
 			@RequestParam(value="ono", required=true, defaultValue="")Integer ono,
 			@RequestParam(value="depth", required=true, defaultValue="")Integer dep

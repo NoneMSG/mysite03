@@ -1,9 +1,8 @@
 package com.jx372.mysite.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.jx372.mysite.service.UserService;
 import com.jx372.mysite.vo.UserVo;
 import com.jx372.security.Auth;
+import com.jx372.security.AuthUser;
 
 @Controller
 @RequestMapping("/user")
@@ -47,35 +47,37 @@ public class UserController {
 	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String modify(
-			HttpSession session
+			//HttpSession session
+			@AuthUser UserVo authUser,
+			Model model
 			){
 		//인증여부 체크(접근제한)
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		//UserVo authUser = (UserVo) session.getAttribute("authUser");
 //		if(authUser==null){
 //			return "redirect:/user/login";
 //		}
 		authUser = userService.getUser(authUser.getNo());
-		session.setAttribute("authUser", authUser);
+		//session.setAttribute("authUser", authUser);
+		model.addAttribute("authUser",authUser);
 		return "user/modify";
 	}
 	
 	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(
-			HttpSession session,
+			@AuthUser UserVo authUser,
 			@ModelAttribute UserVo vo
 			){
 		//인증여부 체크(접근제한)
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		//UserVo authUser = (UserVo) session.getAttribute("authUser");
 //		if(authUser==null){
 //			return "redirect:/user/login";
 //		}
+		System.out.println(vo);
 		vo.setNo(authUser.getNo());
-		//System.out.println(vo);
-		
 		userService.update(vo); 
-		session.setAttribute("result", "success");
-		return "redirect:/user/logout";
+		
+		return "redirect:/user/modify?result=success";
 	}
 	
 //	//MsgCovt test

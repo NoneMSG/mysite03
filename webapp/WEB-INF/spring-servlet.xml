@@ -31,8 +31,14 @@
 			</bean>
 
 		</mvc:message-converters>
-	</mvc:annotation-driven>
 
+	<!-- controller의 Handler의 argument resolver 등록 -->		
+	<mvc:argument-resolvers>
+	 <bean class="com.jx372.security.AuthUserHandlerMethodArgumentResolver"/>           
+     </mvc:argument-resolvers>
+		
+	</mvc:annotation-driven>
+	
 
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven />
