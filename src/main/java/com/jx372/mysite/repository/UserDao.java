@@ -3,8 +3,6 @@ package com.jx372.mysite.repository;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,8 +23,8 @@ public class UserDao {
 	public UserVo get( Long no ){
 		
 		//map을 resultType으로 사용하는 예제
-		Map map = sqlSession.selectOne("user.getByNo2", no);
-		System.out.println(map);
+		//Map map = sqlSession.selectOne("user.getByNo2", no);
+		//System.out.println(map);
 		
 		UserVo userVo = sqlSession.selectOne("user.getByNo",no);
 		return userVo;

@@ -6,6 +6,14 @@ public class UserVo {
 	private String email;
 	private String password;
 	private String gender;
+	private String role;
+	
+	public final String getRole() {
+		return role;
+	}
+	public final void setRole(String role) {
+		this.role = role;
+	}
 	public Long getNo() {
 		return no;
 	}
@@ -39,7 +47,7 @@ public class UserVo {
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + "]";
+				+ gender + ", role=" + role + "]";
 	}
 	
 	

@@ -1,20 +1,25 @@
 package com.jx372.mysite.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jx372.mysite.service.AdminService;
+import com.jx372.mysite.vo.AdminVo;
 
 @Controller
 public class DomainController {
 	
+	@Autowired
+	private AdminService adminService;
 	
 	@RequestMapping({"/", "/main"})
-	public String index(){
+	public String index(Model model){
 		//view resolver bean을 설정해주었기 때문에 URL을 간략하게 사용할 수 있다.
-
+		AdminVo adminVo = adminService.getInfo();
+		model.addAttribute("mainInfo", adminVo);
 		return "main/index";
 	}
 	

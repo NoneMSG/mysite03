@@ -40,7 +40,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 				return false;
 			}
 			
-			//login성공 처리
+			//login성공 처리 session에 authUser를 넘겨버리고 redirect시킴 데이터를 굳이 메서드로 접근시킬필요 없다.
 			HttpSession session  = request.getSession(true);
 			session.setAttribute("authUser", userVo);
 			response.sendRedirect(request.getContextPath()+"/main");

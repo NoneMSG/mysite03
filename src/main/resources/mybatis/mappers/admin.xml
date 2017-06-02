@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+
+	<select id="get" resultType="adminvo" > 
+	<![CDATA[
+		select title, welcome, profile_path as profilepath, description
+		from site_admin 
+		where no =1
+	]]>
+	</select>
+
+
+	<select id="update" parameterType="adminvo"> 
+	<![CDATA[
+		update site_admin 
+		set title=#{title}, 
+			welcome=#{welcome}, 
+			profile_path=#{profilepath}, 
+			description=#{description}
+		where no=1;
+	]]>
+	</select>
+
+
+</mapper>

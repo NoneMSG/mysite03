@@ -10,7 +10,7 @@
 		<![CDATA[
 			insert
 				into user
-			values (#{no}, #{name}, #{email}, password(#{password}), #{gender})
+			values (#{no}, #{name}, #{email}, password(#{password}), #{gender}, 'USER')
 		]]>
 		
 	</insert>
@@ -25,7 +25,7 @@
 	
 	<select id="getByNo2" resultType="map" parameterType="long"> <!-- 내장객체, 객체만 넘길수 있다. -->
 	<![CDATA[
-		select no, name, email, gender
+		select no, name, email, gender, role
 		from user 
 		where no=#{no }
 	]]>
@@ -33,7 +33,7 @@
 	
 	<select id="getByInfo" resultType="uservo" parameterType="map">
 		<![CDATA[
-			select no, name
+			select no, name, role
 				from user 
 				where email=#{email}
 				and password = password(#{password})
@@ -43,7 +43,7 @@
  	<!-- 객체는 한개밖에 못 보낸다 -->
 	<select id="getByNo" resultType="uservo" parameterType="long"> <!-- 내장객체, 객체만 넘길수 있다. -->
 	<![CDATA[
-		select no, name, email, gender
+		select no, name, email, gender, role
 		from user 
 		where no=#{no }
 	]]>

@@ -27,7 +27,7 @@ public class UserController {
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute UserVo userVo){
-		System.out.println(userVo);
+		//System.out.println(userVo);
 		//join 로직은 service에서 처리
 		userService.join(userVo);
 		return "redirect:/user/joinsuccess";

@@ -9,22 +9,33 @@
 						<li class="selected"><a href="${pageContext.servletContext.contextPath }/main">jx372</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
+						<c:if test="${authUser.role =='ADMIN' }">
+						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
+						</c:if>
 					</c:when>
 					<c:when test="${param.menu == 'guestbook' }">
 						<li><a href="${pageContext.servletContext.contextPath }/main">jx372</a></li>
 						<li class="selected"><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
+						<c:if test="${authUser.role =='ADMIN' }">
+						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
+						</c:if>
 					</c:when>
 					<c:when test="${param.menu == 'board' }">
 						<li><a href="${pageContext.servletContext.contextPath }/main">jx372</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li class="selected"><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
-						
+						<c:if test="${authUser.role =='ADMIN' }">
+						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
+						</c:if>
 					</c:when>
 					<c:otherwise>
 						<li><a href="${pageContext.servletContext.contextPath }/main">jx372</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
+						<c:if test="${authUser.role =='ADMIN' }">
+						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
+						</c:if>
 					</c:otherwise>					
 				</c:choose>
 				
