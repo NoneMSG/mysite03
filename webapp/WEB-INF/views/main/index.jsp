@@ -17,7 +17,7 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
-					<img id="profile" src="${pageContext.request.contextPath }${mainInfo.profilepath}">
+					<img id="profile" src="${pageContext.request.contextPath }${mainInfo.profilepath}" >
 					<br>
 					<h2>${mainInfo.welcome } </h2>
 					
