@@ -16,7 +16,7 @@ public class AdminDao {
 	
 		AdminVo adminVo = sqlSession.selectOne("admin.get");
 		
-		System.out.println("getList"+adminVo);
+		//System.out.println("getList"+adminVo);
 		return adminVo;
 	}
 	

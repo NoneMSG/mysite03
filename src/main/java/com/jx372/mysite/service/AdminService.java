@@ -46,7 +46,7 @@ public class AdminService {
 			writeFile(profilepath, convertedName);
 			
 			url = PREFIX_URL+convertedName;
-		System.out.println(url);	
+		//System.out.println(url);	
 		}catch(IOException e){
 			throw new RuntimeException(e);
 		}

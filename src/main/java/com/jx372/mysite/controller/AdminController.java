@@ -34,9 +34,9 @@ public class AdminController {
 		AdminVo admininfo =adminVo;
 		
 		admininfo.setProfilepath(profileUrl);
-		System.out.println("before"+admininfo);
+		//System.out.println("before"+admininfo);
 		adminService.updateInfo(admininfo);
-		System.out.println("after"+admininfo);
+		//System.out.println("after"+admininfo);
 		return "redirect:/admin/main";
 	}
 	

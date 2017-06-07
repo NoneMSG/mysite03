@@ -24,8 +24,8 @@ public class GuestBookService {
 		gbDao.delete(gbVo);
 	}
 	
-	public boolean writeMessage(GuestbookVo vo){
-		boolean result = gbDao.insert(vo);
+	public int writeMessage(GuestbookVo vo){
+		int result = gbDao.insert(vo);
 		System.out.println(vo);
 		return result;
 	}

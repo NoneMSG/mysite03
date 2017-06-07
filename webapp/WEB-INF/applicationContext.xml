@@ -10,12 +10,14 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	<aop:aspectj-autoproxy />
 
 	<context:annotation-config />
 
 <!-- tomcat이 root application context에 있는 어노테이션들을 스캔하기 위해 설정한 components들 -->
 	<context:component-scan
-		base-package="com.jx372.mysite.repository, com.jx372.mysite.service, com.jx372.mysite.exception ">
+		base-package="com.jx372.mysite.repository, com.jx372.mysite.service, com.jx372.mysite.exception, com.jx372.mysite.aspect ">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation"
