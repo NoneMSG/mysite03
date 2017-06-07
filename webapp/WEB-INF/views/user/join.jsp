@@ -1,4 +1,10 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <!doctype html>
 <html>
 <head>
@@ -42,14 +48,36 @@ $(function() {
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<div id="content">
 			<div id="user">
-
-				<form id="join-form" name="joinForm" method="post" action="${pageContext.servletContext.contextPath }/user/join">
-					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="">
+				<form:form 
+				modelAttribute="userVo"
+				id="join-form" 
+				name="joinForm" 
+				method="post" 
+				action="${pageContext.servletContext.contextPath }/user/join">
+				
+					<label class="block-label" for="name"><spring:message code="name" text="이름" /></label>
+					<input id="name" name="name" type="text" value="${userVo.name }">
+					
+					<spring:hasBindErrors name="userVo">
+					   <c:if test="${errors.hasFieldErrors('name') }">
+					  	 <p style="text-align:left; color:red">
+					   		<strong>
+								<spring:message 
+	     						code="${errors.getFieldError( 'name' ).codes[0] }" 	
+	     			     		text="${errors.getFieldError( 'name' ).defaultMessage }" />
+							</strong>
+					   	</p>
+					   </c:if>
+					</spring:hasBindErrors>
 
 					<label class="block-label" for="email">이메일</label>
-					<input id="email" name="email" type="text" value="">
+					<form:input path="email"/>
 					<input id="check-button" type="button" value="id 중복체크">
+					<p style="color:red; padding:0; margin:0; text-align:left">
+						<form:errors path="email" />
+					 </p>
+					
+					
 					<label class="block-label">패스워드</label>
 					<input name="password" type="password" value="">
 					
@@ -67,7 +95,7 @@ $(function() {
 					
 					<input type="submit" value="가입하기">
 					
-				</form>
+				</form:form>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/include/navigation.jsp" />

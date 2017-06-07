@@ -12,7 +12,7 @@
 	<mvc:annotation-driven>
 
 		<mvc:message-converters>
-		<!-- 메시지 컨버터를 하기위한 객체 생성 -->
+			<!-- 메시지 컨버터를 하기위한 객체 생성 -->
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 				<property name="supportedMediaTypes">
 					<list>
@@ -20,8 +20,8 @@
 					</list>
 				</property>
 			</bean>
-		
-		<!-- json을 상용하기 위한 jackson객체 생성 -->
+
+			<!-- json을 상용하기 위한 jackson객체 생성 -->
 			<bean
 				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="supportedMediaTypes">
@@ -33,28 +33,28 @@
 
 		</mvc:message-converters>
 
-	<!-- controller의 Handler의 argument resolver 등록   argument resolve 주입  -->		
-	<mvc:argument-resolvers>
-	 <bean class="com.jx372.security.AuthUserHandlerMethodArgumentResolver"/>           
-     </mvc:argument-resolvers>
-		
+		<!-- controller의 Handler의 argument resolver 등록 argument resolve 주입 -->
+		<mvc:argument-resolvers>
+			<bean class="com.jx372.security.AuthUserHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
+
 	</mvc:annotation-driven>
-	
+
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven />
-	
+
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
 
 	<mvc:resources mapping="/upload/images/**" location="file:/uploads/" />
-	
 
-	<!-- Interceptors interceptor가 언제 실행되는지 알아보기 위한 객체생성 및 설정-->
+
+	<!-- Interceptors interceptor가 언제 실행되는지 알아보기 위한 객체생성 및 설정 -->
 	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/board/view/**" 
 		/> <bean class="com.jx372.mysite.interceptor.Myinterceptor02" /> </mvc:interceptor> 
 		</mvc:interceptors> -->
 
-<!-- 로그인 인증을 위한 세션정보를 interceptor영역에서 처리하기 위한 객체 선언 및 설정들 -->
+	<!-- 로그인 인증을 위한 세션정보를 interceptor영역에서 처리하기 위한 객체 선언 및 설정들 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth" />
@@ -75,21 +75,22 @@
 		</mvc:interceptor>
 
 	</mvc:interceptors>
-	
-	<bean id="multipartResolver" 
-       class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-       
-      <!-- 최대업로드 가능한 바이트크기 -->
-      <property name="maxUploadSize" value="52428800" />
-    
-      <!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
-     <!-- property name="maxInMemorySize" value="52428800" /-->
 
-     <!-- defaultEncoding -->
-     <property name="defaultEncoding" value="utf-8" />
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="52428800" />
+
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<!-- property name="maxInMemorySize" value="52428800" / -->
+
+		<!-- defaultEncoding -->
+		<property name="defaultEncoding" value="utf-8" />
 	</bean>
 
-<!-- viewResolver를 위한 객체를 bean으로 설정 foward 또는 redirect시에 문자열의 앞뒤로 설정된 값을 자동으로 붙여준다. -->
+	<!-- viewResolver를 위한 객체를 bean으로 설정 foward 또는 redirect시에 문자열의 앞뒤로 설정된 값을 
+		자동으로 붙여준다. -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -98,9 +99,19 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
-	
-	
-<!-- tomcat이 controller을 스캔하기 위한 어노테이션설정 부분 -->
+
+	<!-- 6. MessageSource -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="basenames">
+			<list>
+				<value>messages/messages_ko</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- tomcat이 controller을 스캔하기 위한 어노테이션설정 부분 -->
 	<context:annotation-config />
 	<context:component-scan base-package="com.jx372.mysite.controller" />
 
