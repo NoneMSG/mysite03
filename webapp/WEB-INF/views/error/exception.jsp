@@ -12,7 +12,7 @@
 	<h1>ooops!</h1>
 	<p>
 		죄송합니다.<br>
-		${Exception }
+		${exception }
 	</p>
 </body>
 </html>

@@ -14,15 +14,16 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class )
 	public ModelAndView handleException(
-			HttpServletRequest  request,
+			//HttpServletRequest  request,
 			Exception e){
+		
 		//1.로깅
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
 		
 		//2.안내페이지가기
 		ModelAndView mav = new ModelAndView();
-		mav.addObject( "uri", request.getRequestURI() );
+		//mav.addObject( "uri", request.getRequestURI() );
 		mav.addObject( "exception", errors.toString() );
 		mav.setViewName( "error/exception" );
 		return mav;

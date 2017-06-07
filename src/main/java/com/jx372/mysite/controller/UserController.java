@@ -34,9 +34,8 @@ public class UserController {
 	public String join(@ModelAttribute @Valid UserVo userVo, 
 			BindingResult result,
 			Model model){
-		//join 로직은 service에서 처리
-		//userService.join(userVo);
 		
+		//사용자가 입력한 데이터  검증
 		if(result.hasErrors()){
 //			List<ObjectError> list = result.getAllErrors();
 //			for(ObjectError error : list){
@@ -45,7 +44,8 @@ public class UserController {
 			model.addAllAttributes(result.getModel());
 			return "user/join";
 		}
-		
+		//join 로직은 service에서 처리
+		userService.join(userVo);
 		return "redirect:/user/joinsuccess";
 	}
 	

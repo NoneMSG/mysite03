@@ -71,7 +71,7 @@ $(function() {
 					</spring:hasBindErrors>
 
 					<label class="block-label" for="email">이메일</label>
-					<form:input path="email"/>
+					<form:input path="email" />
 					<input id="check-button" type="button" value="id 중복체크">
 					<p style="color:red; padding:0; margin:0; text-align:left">
 						<form:errors path="email" />
