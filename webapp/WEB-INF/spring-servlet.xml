@@ -10,7 +10,6 @@
 	<!-- aspect -->
 	<aop:aspectj-autoproxy />
 	<mvc:annotation-driven>
-
 		<mvc:message-converters>
 			<!-- 메시지 컨버터를 하기위한 객체 생성 -->
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -47,12 +46,6 @@
 	<mvc:default-servlet-handler />
 
 	<mvc:resources mapping="/upload/images/**" location="file:/uploads/" />
-
-
-	<!-- Interceptors interceptor가 언제 실행되는지 알아보기 위한 객체생성 및 설정 -->
-	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/board/view/**" 
-		/> <bean class="com.jx372.mysite.interceptor.Myinterceptor02" /> </mvc:interceptor> 
-		</mvc:interceptors> -->
 
 	<!-- 로그인 인증을 위한 세션정보를 interceptor영역에서 처리하기 위한 객체 선언 및 설정들 -->
 	<mvc:interceptors>
@@ -103,6 +96,7 @@
 	<!-- 6. MessageSource -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<!-- class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> -->
 		<property name="defaultEncoding" value="utf-8" />
 		<property name="basenames">
 			<list>
