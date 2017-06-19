@@ -21,7 +21,7 @@
 	<!-- Context Parameter -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/applicationContext.xml</param-value>
+		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 
 	<!--Encoding Filter setting 기술을 외부로 빼서 관리하기 위해 설정 -->

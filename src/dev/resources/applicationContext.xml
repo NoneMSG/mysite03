@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	<aop:aspectj-autoproxy />
+
+	<context:annotation-config />
+
+<!-- tomcat이 root application context에 있는 어노테이션들을 스캔하기 위해 설정한 components들 -->
+	<context:component-scan
+		base-package="com.jx372.mysite.repository, com.jx372.mysite.service, com.jx372.mysite.exception, com.jx372.mysite.aspect ">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Component" />
+	</context:component-scan>
+
+<!-- JDBC를 사용하기 위한  DataSource 객체 생성 및 설정-->
+	<!-- Connection Pool DataSource -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://192.168.1.199:3306/webdb" />
+		<property name="username" value="webdb" />
+		<property name="password" value="webdb" />
+	</bean>
+
+<!-- Mybatis를 이용한 DAO를 사용하기 위한 객체 생성 및 설정 DataSource의 속성들을 주입받는다. -->
+	<!-- MyBatis SqlSessionFactoryBean, Datasource를 가지고있다. bean을 주입했다. setter주입! -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" /> <!-- set datasource autowired없이 setter로 주입 -->
+		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
+	</bean>
+
+<!-- mybatis로 쿼리문을 쉽게 관리하기 위한 객체 생성 -->
+	<!-- MyBatis SqlSessionTemplate 생성자로주입!-->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+</beans>
