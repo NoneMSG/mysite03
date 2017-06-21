@@ -53,8 +53,10 @@
 				</ul>
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/include/navigation.jsp" />
-		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+		<c:import url="/WEB-INF/views/include/navigation.jsp">
+			<c:param name="menu" value="guestbook"/>
+		</c:import>
+		<c:import url="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
 </html>

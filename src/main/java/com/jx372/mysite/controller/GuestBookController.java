@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jx372.mysite.service.GuestBookService;
 import com.jx372.mysite.vo.GuestbookVo;
-import com.jx372.security.Auth;
+
 
 @Controller
 @RequestMapping("/guestbook")
@@ -21,7 +21,7 @@ public class GuestBookController {
 	@Autowired
 	private GuestBookService gbService;
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping({"/list","/"})
 	public String list(Model model) {
 		List<GuestbookVo> list = gbService.getList();
 		model.addAttribute("list", list);
@@ -44,6 +44,10 @@ public class GuestBookController {
 	public String delete(@ModelAttribute GuestbookVo gbVo) {
 		gbService.delete(gbVo);
 		return "redirect:/guestbook/list";
+	}
+	@RequestMapping(value="/listajax", method=RequestMethod.GET)
+	public String listajax(){
+		return "guestbook/index-ajax";
 	}
 
 }
