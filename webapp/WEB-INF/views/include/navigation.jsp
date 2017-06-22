@@ -10,6 +10,7 @@
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/listajax">방명록(ajax)</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/gallery">갤러리</a></li>
 						<c:if test="${authUser.role =='ADMIN' }">
 						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
 						</c:if>
@@ -19,6 +20,7 @@
 						<li class="selected"><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/listajax">방명록(ajax)</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/gallery">갤러리</a></li>
 						<c:if test="${authUser.role =='ADMIN' }">
 						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
 						</c:if>
@@ -28,6 +30,7 @@
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/listajax">방명록(ajax)</a></li>
 						<li class="selected"><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/gallery">갤러리</a></li>
 						<c:if test="${authUser.role =='ADMIN' }">
 						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
 						</c:if>
@@ -37,6 +40,17 @@
 						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
 						<li class="selected"><a href="${pageContext.servletContext.contextPath }/guestbook/listajax">방명록(ajax)</a></li>
 						<li ><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/gallery">갤러리</a></li>
+						<c:if test="${authUser.role =='ADMIN' }">
+						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
+						</c:if>
+					</c:when>
+					<c:when test="${param.menu == 'gallery' }">
+						<li><a href="${pageContext.servletContext.contextPath }/main">jx372</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/guestbook/listajax">방명록(ajax)</a></li>
+						<li ><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
+						<li class="selected"><a href="${pageContext.servletContext.contextPath }/gallery">갤러리</a></li>
 						<c:if test="${authUser.role =='ADMIN' }">
 						<li><a href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a></li>
 						</c:if>
