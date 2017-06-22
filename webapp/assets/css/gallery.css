@@ -42,13 +42,16 @@
 	height:134px;
 	position: relative;
 	margin:5px 5px 5px 5px;
-	!padding:2px auto;
+	overflow-y:hidden;
+	border: 1px solid #F0F1F2;
+	
 }
-!!#gallery ul li a {display: block}
-#gallery li a.image{
+
+#gallery ul li a {display: block; outline:none; font-size:0;}
+#gallery ul li a.image{
 	background-repeat:no-repeat;
 	background-size:110px;
-	background-position:center;
+	background-position:center center;
 	background-color:#FFFFFF;
 	position:absolute;
 	width:100%;
