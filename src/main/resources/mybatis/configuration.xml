@@ -12,6 +12,7 @@
 	<typeAlias alias="uservo" type="com.jx372.mysite.vo.UserVo" />
 	<typeAlias alias="boardvo" type="com.jx372.mysite.vo.BoardVo" />
 	<typeAlias alias="adminvo" type="com.jx372.mysite.vo.AdminVo" />
+	<typeAlias alias="galleryvo" type="com.jx372.mysite.vo.GalleryVo" />
 </typeAliases>
 
 <!-- SQL을 저장하는 파일 -->
@@ -20,5 +21,6 @@
 		<mapper resource="mybatis/mappers/guestbook.xml" />
 		<mapper resource="mybatis/mappers/board.xml" />
 		<mapper resource="mybatis/mappers/admin.xml" />
+		<mapper resource="mybatis/mappers/gallery.xml"/>
 	</mappers>
 </configuration>
